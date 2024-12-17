@@ -13,7 +13,7 @@
 /**
  * @brief The number of lights in a single section that lights up.
  */
-#define SECTION_SIZE 10
+#define SECTION_SIZE 50
 
 /**
  * @brief The array of WS2812B LEDs.
@@ -69,10 +69,9 @@ void loop() {
     if(cursor == NUM_LEDS) {
       direction = false;
       cursor = NUM_LEDS - 1;
-      red = random(0, 256);
-      green = random(0, 256);
-      blue = random(0, 256);
-      Serial.printf("New color: (%d, %d, %d)\n", (int) red, (int) green, (int) blue);
+      red = random(0, 2) > 0 ? 255 : 0;
+      green = random(0, 2) > 0 ? 255 : 0;
+      blue = random(0, 2) > 0 ? 255 : 0;
     }
   } else {
     cursor -= 1;
@@ -80,12 +79,12 @@ void loop() {
     if(cursor == SECTION_SIZE - 1) {
       direction = true;
       cursor = SECTION_SIZE;
-      red = random(0, 256);
-      green = random(0, 256);
-      blue = random(0, 256);
-      Serial.printf("New color: (%d, %d, %d)\n", (int) red, (int) green, (int) blue);
+      red = random(0, 2) > 0 ? 255 : 0;
+      green = random(0, 2) > 0 ? 255 : 0;
+      blue = random(0, 2) > 0 ? 255 : 0;
     }
   }
   
-  delay(20);
+  
+  delay(50);
 }
