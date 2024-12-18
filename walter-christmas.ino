@@ -54,9 +54,7 @@ void loop() {
   // Handle twinkling LEDs
   handleTwinkles();
 
-  FastLED.setBrightness(50);
   FastLED.show();
-  FastLED.setBrightness(50);
   delay(DELAY_MS);
 }
 
@@ -104,14 +102,14 @@ void handleTwinkles() {
  * @brief Returns a random CRGB color with at least one channel active
  */
 CRGB getRandomColor() {
-  uint8_t r = 0, g = 0, b = 0;
+  // Generate a random hue value (0-255)
+  uint8_t hue = random(0, 256);
 
-  // Ensure at least one channel is at its maximum to keep the color vibrant
-  switch(random(0, 3)) {
-    case 0: r = 256; g = random(0, 256); b = random(0, 256); break; // Strong red
-    case 1: g = 256; r = random(0, 256); b = random(0, 256); break; // Strong green
-    case 2: b = 256; r = random(0, 256); g = random(0, 256); break; // Strong blue
-  }
+  // Convert from HSV to RGB, keeping the saturation at 100% and value at 40% (0.4)
+  CHSV hsvColor = CHSV(hue, 255, 255 * 0.4);  // 40% brightness
 
-  return CRGB(r, g, b);
+  // Convert from CHSV to CRGB
+  CRGB color = hsvColor;
+
+  return color;
 }
